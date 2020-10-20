@@ -70,6 +70,8 @@ class App extends Component {
     this.setState({route : route})
   }
 
+ 
+
   addItem = (item, id) =>  {
     if (item.todo !== ""){
       fetch('http://localhost:8000/add/' + id, {
@@ -102,7 +104,7 @@ class App extends Component {
       })
       .then(res => {
         console.log(id)
-        const editedItems = this.state.items.concat()
+        const editedItems = this.state.items
         for (let i= 0; i< editedItems.length; i++){
           if(editedItems[i].noteid == id){
             editedItems[i].todo = todo
@@ -110,9 +112,6 @@ class App extends Component {
         }
         this.setState({items:editedItems})
       })
-    
-   
-
   }
 
   deleteItem = (key) =>{
@@ -128,6 +127,50 @@ class App extends Component {
       this.setState({items:filteredItems})
     })
   }
+
+  toggleComplete = (item) => {
+
+    console.log(item)
+
+    if (item.done != 0){
+      fetch('http://localhost:8000/toggle/' + item.noteid, {
+        method:'PUT',
+        headers:{'Content-Type' : 'application/json', 'Authorization' : 'sdfsfsfwiiowuerewrwrewrww'},
+        body:JSON.stringify({
+          done:0
+        })
+      })
+      .then(res => {
+        const editedItems = this.state.items
+        for (let i= 0; i< editedItems.length; i++){
+          if(editedItems[i].noteid === item.noteid){
+            editedItems[i].done = 0
+          }
+        }
+        this.setState({items:editedItems})
+      }) 
+    } else {
+      fetch('http://localhost:8000/toggle/' + item.noteid, {
+        method:'PUT',
+        headers:{'Content-Type' : 'application/json', 'Authorization' : 'sdfsfsfwiiowuerewrwrewrww'},
+        body:JSON.stringify({
+          done:1
+        })
+      })
+      .then(res => {
+        const editedItems = this.state.items
+        for (let i= 0; i< editedItems.length; i++){
+          if(editedItems[i].noteid === item.noteid){
+            editedItems[i].done = 1
+          }
+        }
+        this.setState({items:editedItems})
+      }) 
+    }
+
+
+
+  }
   
   render(){
     return(
@@ -138,7 +181,7 @@ class App extends Component {
             <div>
               <Logo />
               <Particles params={particlesOption} className="particles" />
-              <Note editItem={this.editItem} deleteItem={this.deleteItem} addItem={this.addItem} items={this.state.items} info={this.state.user} />
+              <Note toggleComplete={this.toggleComplete} editItem={this.editItem} deleteItem={this.deleteItem} addItem={this.addItem} items={this.state.items} info={this.state.user} />
             </div>
           : (
             this.state.route === 'signin'

@@ -8,20 +8,16 @@ import {Modal, Button, Row, Col, Form } from 'react-bootstrap'
 class ListItem extends React.Component{
 
     state = {
-        show: false
+        show: false,
+        currentNoteID: ""
     }
 
     handleModal =() =>{
         this.setState({show:!this.state.show})
         console.log(this.props)
+        console.log(this.state)
     }
 
-    handleSubmit = (e) => {
-        const noteId = document.getElementById("currentNoteId").innerHTML
-        const todo = e.target.TodoName.value
-        e.preventDefault()
-        this.props.editItem(todo, noteId)
-    }
 
     // handleSubmit = (e) =>{
     //     e.preventDefault()
@@ -42,37 +38,20 @@ class ListItem extends React.Component{
 
         return <div>
             {this.props.items.map(item => {
+                console.log(item)
                 return(
                     <div>
-                        <div className="list" key={item.noteid} onDoubleClick={this.changeEditMode} >
-                            <p key={item.noteid}> {item.todo}   </p>
+                        <div className="list" key={item.noteid} >
+                            <p style={{
+                                textDecoration: item.done === 1  ? 'line-through' : ""
+                            }}  key={item.noteid} onClick={()=> this.props.toggleComplete(item) } > {item.todo} {item.noteid} </p>
                             <div className="icons">
                                 
+                                
                                 <Button onClick ={this.handleModal}>Edit</Button>
-                                <Modal show={this.state.show} onHide={this.handleModal} >
-                                    <Modal.Header closeButton>Edit Todo</Modal.Header>
-                                    <Modal.Body>
-                                        <Row>
-                                            <Col sm={6}>
-                                                <Form onSubmit={this.handleSubmit}>
-                                                <Form.Group controlId="TodoName" >
-                                                    <Form.Label>Re-enter Todo</Form.Label>
-                                                    <Form.Control type="text" name="TodoName" required placeholder="TodoName" />
-                                                </Form.Group>
-                                                <Form.Group>
-                                                    <Button variant="primary" type="submit">Rename</Button>
-                                                </Form.Group>
-                                                </Form>
-                                                <p  id="currentNoteId">{item.noteid}</p>
-                                            </Col>
-                                        </Row>
-                                    </Modal.Body>
-                                    <Modal.Footer>
-                                        <Button onClick ={this.handleModal}>Close</Button>
-                                    </Modal.Footer>
-                                </Modal>
+                                
 
-
+                                
                                 <img onClick={()=> this.props.deleteItem(item.noteid)} src="https://img.icons8.com/wired/64/000000/empty-trash.png" height="20" />
                             </div>
                         </div>

@@ -11,6 +11,7 @@ class Note extends React.Component {
     }
 
     handleInput = (e) => {
+        console.log(e)
         this.setState({
             currentItem:{
                 todo:e.target.value,
@@ -49,7 +50,7 @@ class Note extends React.Component {
                         <button type="submit">Add</button>
                     </form>
                 </header>
-                <ListItem editItem={this.props.editItem} items={this.props.items} deleteItem={this.props.deleteItem}/>
+                <ListItem currentItem={this.state.currentItem} toggleComplete={this.props.toggleComplete} editItem={this.props.editItem} items={this.props.items} deleteItem={this.props.deleteItem}/>
             </div>
             
         )
