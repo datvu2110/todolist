@@ -1,6 +1,7 @@
 import React from 'react'
+import {Modal, Button, Row, Col, Form } from 'react-bootstrap'
 
-class Modal extends React.Component{
+class ModalItem extends React.Component{
     
 
     handleSubmit = (e) => {
@@ -11,8 +12,9 @@ class Modal extends React.Component{
         this.props.editItem(todo, noteId)
     }
     render(){
+        console.log(document.getElementById("p2"))
         return(
-            <Modal show={this.state.show} onHide={this.handleModal} >
+            <Modal show={this.props.show} onHide={this.handleModal} >
                                     <Modal.Header closeButton>Edit Todo</Modal.Header>
                                     <Modal.Body>
                                         <Row>
@@ -26,7 +28,7 @@ class Modal extends React.Component{
                                                     <Button variant="primary" type="submit">Rename</Button>
                                                 </Form.Group>
                                                 </Form>
-                                                <p  id="currentNoteId">{item.noteid}</p>
+                                                    <p  id="currentNoteId">{this.props.item}</p>
                                             </Col>
                                         </Row>
                                     </Modal.Body>
@@ -38,4 +40,4 @@ class Modal extends React.Component{
     }
 }
 
-export default Modal
+export default ModalItem

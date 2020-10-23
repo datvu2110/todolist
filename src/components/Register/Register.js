@@ -26,7 +26,12 @@ class Register extends React.Component {
   }
 
   onSubmitSignIn = () =>{
-    fetch('http://localhost:8000/register', {
+      
+    if (this.state.email.length <=2 ){
+      alert("Invalid email address")
+    }
+    else{
+      fetch('https://frozen-river-89593.herokuapp.com/register', {
       method:'post',
       headers:{'Content-Type' : 'application/json'},
       body:JSON.stringify({
@@ -42,9 +47,12 @@ class Register extends React.Component {
           this.props.onRouteChange('home')
         }
         else{
+          console.log(user)
           alert("Email is in used")
         }
       })
+    }
+    
     
   }
   
