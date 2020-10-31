@@ -1,10 +1,19 @@
 import React from 'react';
-
+import {Alert} from "react-bootstrap"
 class Signin extends React.Component {
 
   state = {
     signInEmail:"",
-    signInPassword: ""
+    signInPassword: "",
+    visible:false
+  }
+
+  onShowAlert = ()=>{
+    this.setState({visible:true},()=>{
+      window.setTimeout(()=>{
+        this.setState({visible:false})
+      },4000)
+    });
   }
 
   onEmailChange = (event) => {
@@ -20,7 +29,7 @@ class Signin extends React.Component {
   }
 
   onSubmitSignIn = () =>{
-    fetch('https://frozen-river-89593.herokuapp.com/signin', {
+    fetch('http://localhost:8000/signin', {
       method:'post',
       headers:{'Content-Type' : 'application/json'},
       body:JSON.stringify({
@@ -36,7 +45,7 @@ class Signin extends React.Component {
           this.props.onRouteChange('home')
         }
         else{
-          alert("Wrong Username/Password")
+          this.onShowAlert()
         }
       })
       
@@ -47,6 +56,7 @@ class Signin extends React.Component {
   render() {
     
     return (
+      <div>
       <article className="br3 ba b--black-10 mv4 w-100 w-50-m w-25-l mw6 shadow-5 center">
         <main className="pa4 black-80">
           <div className="measure">
@@ -89,6 +99,10 @@ class Signin extends React.Component {
           </div>
         </main>
       </article>
+      <Alert variant="info" show={this.state.visible} >
+         Wrong Username or Password
+      </Alert>
+      </div>
     );
   }
 }

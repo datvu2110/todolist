@@ -4,6 +4,7 @@ import './ListItem.css'
 import Note from './Note'
 import {Modal, Button, Row, Col, Form } from 'react-bootstrap'
 import ModalItem from './ModalItem'
+import FlipMove from 'react-flip-move'
 
 class ListItem extends React.Component{
 
@@ -11,17 +12,26 @@ class ListItem extends React.Component{
 
         todo:{},
         show: false,
-        currentNoteID: ""
+        currentNoteID: "",
+        alert:false
     }
 
-    handleModal =() =>{
-        this.setState({show:true})
-        console.log(this.state)
-        console.log('this is:', this);
-        
+    handleModal =(id) =>{
+        this.setState({show:true});
+        this.setCurrentId(id);      
     }
 
+    setCurrentId = (id) => {
+        this.setState({currentNoteID: id});
+    }
+    handleClose = () => { 
+        this.setState({ show: false,alert:false });
+        //console.log("show : " +this.props.show);
+    }
 
+    showAlert =() =>{
+        this.setState({alert:true})
+    }
     // handleSubmit = (e) =>{
     //     e.preventDefault()
     //     const noteId = document.getElementById("currentNoteId").innerHTML
@@ -40,26 +50,26 @@ class ListItem extends React.Component{
     render(){
         let i = 0;
         return <div>
-            {this.props.items.map(item => {
+            {this.props.items.map((item,index) => {
                 i = i+ 1
                 return(
-                    <div>
+                    <div key={index}>
+
                         <div className="list" key={item.noteid} >
                             <p id={"p" + 1} style={{
                                 textDecoration: item.done === 1  ? 'line-through' : ""
-                            }}  key={item.noteid} onClick={()=> this.props.toggleComplete(item) } > {item.todo} {item.noteid} </p>
+                            }}  key={item.noteid} onClick={()=> this.props.toggleComplete(item) } > {item.todo}  </p>
                             <div className="icons">
                                 
                                 
-                                <Button onClick={()=> this.handleModal()} id={item.noteid} >Edit</Button>
+                                <Button size="sm" onClick={()=> {let id; id = item.noteid;this.handleModal(id) }} id={item.noteid} >Edit</Button>
                                 
-                                <ModalItem show={this.state.show} item={item.noteid}/>
+                                <ModalItem editItem={this.props.editItem} showAlert={this.showAlert} alert={this.state.alert} show = {this.state.show} itemid={this.state.currentNoteID} handleClose = {this.handleClose} editItem={this.props.editItem} />
                                 
                                 <img onClick={()=> this.props.deleteItem(item.noteid)} src="https://img.icons8.com/wired/64/000000/empty-trash.png" height="20" />
                             </div>
                         </div>
                     </div>
-                
                 )
             })}
         </div>
@@ -67,33 +77,4 @@ class ListItem extends React.Component{
     }
 }
 
-
-/* const ListItem = (props) =>{
-    const items = props.items
-    if (items.length !== 0){
-        const listItems = items.map(item => {
-            return (
-                <div className="list" key={item.noteid}>
-                    <p key={item.noteid}> {item.todo} {item.noteid}</p>
-                    <div className="icons">
-                        <img className="pencil" src="https://img.icons8.com/android/24/000000/pencil.png" height="20"/>
-                        <img onClick={()=> props.deleteItem(item.noteid)} src="https://img.icons8.com/wired/64/000000/empty-trash.png" height="20" />
-                    </div>
-                </div>
-            )
-        })
-        return (
-            <div>{listItems}
-            
-            </div>
-        )
-    } else {
-        return (
-            <div></div>
-        )
-    }
-    
-} */
-
 export default ListItem
-

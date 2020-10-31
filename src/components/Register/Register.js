@@ -1,11 +1,15 @@
 import React from 'react';
+import { Alert } from "react-bootstrap"
 
 class Register extends React.Component {
   state = {
     email:"",
     password: "",
-    name:""
+    name:"",
+    visible:false
   }
+
+  
 
   onNameChange = (event) => {
     this.setState({
@@ -25,13 +29,18 @@ class Register extends React.Component {
     })
   }
 
+  onShowAlert = ()=>{
+    this.setState({visible:true},()=>{
+      window.setTimeout(()=>{
+        this.setState({visible:false})
+      },4000)
+    });
+  }
+
   onSubmitSignIn = () =>{
-      
-    if (this.state.email.length <=2 ){
-      alert("Invalid email address")
-    }
-    else{
-      fetch('https://frozen-river-89593.herokuapp.com/register', {
+    let re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+    if ( re.test(this.state.email) ){
+      fetch('http://localhost:8000/register', {
       method:'post',
       headers:{'Content-Type' : 'application/json'},
       body:JSON.stringify({
@@ -48,17 +57,19 @@ class Register extends React.Component {
         }
         else{
           console.log(user)
-          alert("Email is in used")
+          this.onShowAlert()
         }
       })
+    }  
+    else{
+      this.onShowAlert()
     }
-    
-    
   }
   
 
   render() {
     return (
+      <div>
       <article className="br3 ba b--black-10 mv4 w-100 w-50-m w-25-l mw6 shadow-5 center">
         <main className="pa4 black-80">
           <div className="measure">
@@ -82,6 +93,9 @@ class Register extends React.Component {
                   name="email-address"
                   id="email-address"
                   onChange={this.onEmailChange}
+                  
+                  pattern="/^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/"
+                  required
                 />
               </div>
               <div className="mv3">
@@ -107,6 +121,10 @@ class Register extends React.Component {
           </div>
         </main>
       </article>
+      <Alert variant="info" show={this.state.visible} >
+         The email is not valid!!!!
+      </Alert>
+      </div>
     );
   }
 }

@@ -1,8 +1,9 @@
 import React from 'react'
-import {Modal, Button, Row, Col, Form } from 'react-bootstrap'
+import {Modal, Button, Row, Col, Form, Alert } from 'react-bootstrap'
 
 class ModalItem extends React.Component{
     
+
 
     handleSubmit = (e) => {
         let noteId = ""
@@ -10,11 +11,12 @@ class ModalItem extends React.Component{
         const todo = e.target.TodoName.value
         e.preventDefault()
         this.props.editItem(todo, noteId)
+        this.props.showAlert()
     }
     render(){
-        console.log(document.getElementById("p2"))
+        
         return(
-            <Modal show={this.props.show} onHide={this.handleModal} >
+            <Modal show={this.props.show} onHide={this.props.handleClose} >
                                     <Modal.Header closeButton>Edit Todo</Modal.Header>
                                     <Modal.Body>
                                         <Row>
@@ -22,18 +24,21 @@ class ModalItem extends React.Component{
                                                 <Form onSubmit={this.handleSubmit}>
                                                 <Form.Group controlId="TodoName" >
                                                     <Form.Label>Re-enter Todo</Form.Label>
-                                                    <Form.Control type="text" name="TodoName" required placeholder="TodoName" />
+                                                    <Form.Control maxLength="15" type="text" name="TodoName" required placeholder="Edit todo here" />
                                                 </Form.Group>
                                                 <Form.Group>
                                                     <Button variant="primary" type="submit">Rename</Button>
                                                 </Form.Group>
                                                 </Form>
-                                                    <p  id="currentNoteId">{this.props.item}</p>
+                                                <p hidden id="currentNoteId">{this.props.itemid}</p>
+                                                <Alert show={this.props.alert} className="text-center" variant="success">
+                                                    Todo is updated
+                                                </Alert>
                                             </Col>
                                         </Row>
                                     </Modal.Body>
                                     <Modal.Footer>
-                                        <Button onClick ={this.handleModal}>Close</Button>
+                                        <Button onClick ={ this.props.handleClose }>Close</Button>
                                     </Modal.Footer>
             </Modal>
         )

@@ -33,3 +33,9 @@
     font-weight: bolder;
     color: white;
 }
+
+@media screen and (max-width:600px){
+    .form{
+        width: 400px;
+    }
+}
