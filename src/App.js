@@ -78,7 +78,11 @@ class App extends Component {
 
   addItem = (item, id) =>  {
     if (item.todo !== ""){
+<<<<<<< HEAD
       fetch('https://frozen-river-89593.herokuapp.com/add/' + id, {
+=======
+      fetch('https://frozen-river-89593.herokuapp.com/add' + id, {
+>>>>>>> 172c85dd6ecf157ea8f551c8686ea929b52dd661
         method:'post',
         headers:{'Content-Type' : 'application/json'},
         body:JSON.stringify({
@@ -99,7 +103,11 @@ class App extends Component {
 
   editItem = (todo, id)=>{
     
+<<<<<<< HEAD
     fetch('https://frozen-river-89593.herokuapp.com/edit/' + id, {
+=======
+    fetch('https://frozen-river-89593.herokuapp.com/edit' + id, {
+>>>>>>> 172c85dd6ecf157ea8f551c8686ea929b52dd661
         method:'PUT',
         headers:{'Content-Type' : 'application/json', 'Authorization' : 'sdfsfsfwiiowuerewrwrewrww'},
         body:JSON.stringify({
@@ -119,7 +127,11 @@ class App extends Component {
   }
 
   deleteItem = (key) =>{
+<<<<<<< HEAD
     fetch('https://frozen-river-89593.herokuapp.com/delete/' + key, {
+=======
+    fetch('https://frozen-river-89593.herokuapp.com/delete' + key, {
+>>>>>>> 172c85dd6ecf157ea8f551c8686ea929b52dd661
       method:'delete',
       headers:{'Content-Type' : 'application/json'},
       body:JSON.stringify({ 
@@ -137,7 +149,11 @@ class App extends Component {
     console.log(item)
 
     if (item.done != 0){
+<<<<<<< HEAD
       fetch('https://frozen-river-89593.herokuapp.com/toggle/' + item.noteid, {
+=======
+      fetch('https://frozen-river-89593.herokuapp.com/toggle' + item.noteid, {
+>>>>>>> 172c85dd6ecf157ea8f551c8686ea929b52dd661
         method:'PUT',
         headers:{'Content-Type' : 'application/json', 'Authorization' : 'sdfsfsfwiiowuerewrwrewrww'},
         body:JSON.stringify({
@@ -154,7 +170,11 @@ class App extends Component {
         this.setState({items:editedItems})
       }) 
     } else {
+<<<<<<< HEAD
       fetch('https://frozen-river-89593.herokuapp.com/toggle/' + item.noteid, {
+=======
+      fetch('https://frozen-river-89593.herokuapp.com/toggle' + item.noteid, {
+>>>>>>> 172c85dd6ecf157ea8f551c8686ea929b52dd661
         method:'PUT',
         headers:{'Content-Type' : 'application/json', 'Authorization' : 'sdfsfsfwiiowuerewrwrewrww'},
         body:JSON.stringify({
