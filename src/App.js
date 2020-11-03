@@ -51,7 +51,7 @@ class App extends Component {
   loadUser = (data) =>{
     
     var obj
-    fetch(' http://localhost:8000/todo/' + data.id)
+    fetch(' https://frozen-river-89593.herokuapp.com/' + data.id)
       .then(res => res.json())
       .then(data => obj = data)
       .then(() => this.setState({items:obj}))
@@ -78,7 +78,7 @@ class App extends Component {
 
   addItem = (item, id) =>  {
     if (item.todo !== ""){
-      fetch('http://localhost:8000/add/' + id, {
+      fetch('https://frozen-river-89593.herokuapp.com/' + id, {
         method:'post',
         headers:{'Content-Type' : 'application/json'},
         body:JSON.stringify({
@@ -99,7 +99,7 @@ class App extends Component {
 
   editItem = (todo, id)=>{
     
-    fetch('http://localhost:8000/todo/' + id, {
+    fetch('https://frozen-river-89593.herokuapp.com/' + id, {
         method:'PUT',
         headers:{'Content-Type' : 'application/json', 'Authorization' : 'sdfsfsfwiiowuerewrwrewrww'},
         body:JSON.stringify({
@@ -119,7 +119,7 @@ class App extends Component {
   }
 
   deleteItem = (key) =>{
-    fetch('http://localhost:8000/todo/' + key, {
+    fetch('https://frozen-river-89593.herokuapp.com/' + key, {
       method:'delete',
       headers:{'Content-Type' : 'application/json'},
       body:JSON.stringify({ 
@@ -137,7 +137,7 @@ class App extends Component {
     console.log(item)
 
     if (item.done != 0){
-      fetch('http://localhost:8000/toggle/' + item.noteid, {
+      fetch('https://frozen-river-89593.herokuapp.com/' + item.noteid, {
         method:'PUT',
         headers:{'Content-Type' : 'application/json', 'Authorization' : 'sdfsfsfwiiowuerewrwrewrww'},
         body:JSON.stringify({
@@ -154,7 +154,7 @@ class App extends Component {
         this.setState({items:editedItems})
       }) 
     } else {
-      fetch('http://localhost:8000/toggle/' + item.noteid, {
+      fetch('https://frozen-river-89593.herokuapp.com/' + item.noteid, {
         method:'PUT',
         headers:{'Content-Type' : 'application/json', 'Authorization' : 'sdfsfsfwiiowuerewrwrewrww'},
         body:JSON.stringify({
