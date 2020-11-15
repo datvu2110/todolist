@@ -51,7 +51,7 @@ class App extends Component {
   loadUser = (data) =>{
     
     var obj
-    fetch('https://frozen-river-89593.herokuapp.com/todo/' + data.id)
+    fetch('http://localhost:8000/todo/' + data.id)
       .then(res => res.json())
       .then(data => obj = data)
       .then(() => this.setState({items:obj}))
@@ -78,7 +78,7 @@ class App extends Component {
 
   addItem = (item, id) =>  {
     if (item.todo !== ""){
-      fetch('https://frozen-river-89593.herokuapp.com/add/' + id, {
+      fetch('http://localhost:8000/add/' + id, {
         method:'post',
         headers:{'Content-Type' : 'application/json'},
         body:JSON.stringify({
@@ -99,7 +99,7 @@ class App extends Component {
 
   editItem = (todo, id)=>{
     
-    fetch('https://frozen-river-89593.herokuapp.com/todo/' + id, {
+    fetch('http://localhost:8000/todo/' + id, {
         method:'PUT',
         headers:{'Content-Type' : 'application/json', 'Authorization' : 'sdfsfsfwiiowuerewrwrewrww'},
         body:JSON.stringify({
@@ -154,7 +154,7 @@ class App extends Component {
         this.setState({items:editedItems})
       }) 
     } else {
-      fetch('https://frozen-river-89593.herokuapp.com/toggle/' + item.noteid, {
+      fetch('http://localhost:8000/toggle/' + item.noteid, {
         method:'PUT',
         headers:{'Content-Type' : 'application/json', 'Authorization' : 'sdfsfsfwiiowuerewrwrewrww'},
         body:JSON.stringify({
